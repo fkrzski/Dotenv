@@ -1,0 +1,24 @@
+{
+    "name": "fkrzski/dotenv",
+    "description": "Library that adds the ability to access variables from '.env', $_ENV, and $_SERVER using the getenv() function",
+    "type": "library",
+    "keywords": ["env", "dotenv", "environment", "variables"],
+    "homepage": "https://github.com/fkrzski/Dotenv",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "fkrzski\\Dotenv\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "fkrzski",
+            "email": "filip.krzyzanowski@protonmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.0"
+    }
+}
