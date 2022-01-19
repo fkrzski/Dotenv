@@ -88,6 +88,7 @@ class Loader {
      */
     protected function setEnvVariable($name, $value) {
         if (!$this->checkIfEnvVariableExists($name)) {
+            $value = Parser::parseValue($value);
             putenv("$name=$value");
             $_SERVER[$name] = $value;
             $_ENV[$name]    = $value;
