@@ -27,13 +27,57 @@ $dotenv->start();
 $dotenv->validator()->required(['APP_NAME', 'API_KEY']);
 ```
 
-### Retrieving  variables values
+### Retrieving variables values
 ```php
 echo getenv('APP_NAME');
 echo $_SERVER['APP_NAME'];
 echo $_ENV['APP_NAME'];
 
 // output: My App Name
+```
+
+### Overwrtitting a variable
+`.env` file
+```shell
+APP_NAME="App Name"
+API_KEY=ApiKey
+
+APP_NAME="Second App Name"
+API_KEY=SecondApiKey
+```
+
+PHP file
+```php
+$dotenv->start(['APP_NAME']);
+
+echo getenv('APP_NAME');
+echo getenv('API_KEY');
+
+// Output:
+// Second App Name
+// ApiKey
+```
+
+Second possibility
+`.env` file
+```shell
+APP_NAME="App Name"
+API_KEY=ApiKey
+
+APP_NAME="Second App Name"
+API_KEY=SecondApiKey
+```
+
+PHP file
+```php
+$dotenv->start(['*']);
+
+echo getenv('APP_NAME');
+echo getenv('API_KEY');
+
+// Output:
+// Second App Name
+// SecondApiKey
 ```
 
 ### Custom path or file name

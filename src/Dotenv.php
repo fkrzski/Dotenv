@@ -25,10 +25,10 @@ class Dotenv {
     protected $loader;
 
     /**
-     * Create new Dotenv instance
+     * Create a new Dotenv instance
      * 
-     * @param string $fileName
-     * @param string $path
+     * @param string $fileName The name of the file with the environment variables
+     * @param string $path     Path to the file with the environment variables
      * 
      * @return void
      */
@@ -39,12 +39,14 @@ class Dotenv {
     }
 
     /**
-     * Run Dotenv instance and load variables 
+     * Run a Dotenv instance and load variables 
+     * 
+     * @param array $overwritten Variables names that can be overwritten
      *
      * @return void
      */
-    public function start() {
-        return $this->loader->load();
+    public function start(array $overwritten = []) {
+        return $this->loader->load($overwritten);
     }
 
     /**

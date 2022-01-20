@@ -8,7 +8,7 @@ class Validator {
     /**
      * Check that all required variables exists and have a value
      * 
-     * @param array $variables
+     * @param array $variables Variables names that must be included in the '.env' file
      * 
      * @throws \Exception
      * 

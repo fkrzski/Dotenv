@@ -22,8 +22,8 @@ class Loader {
     /**
      * Create new Loader instance
      * 
-     * @param string $fileName
-     * @param string $path
+     * @param string $fileName The name of the file with the environment variables
+     * @param string $path     Path to the file with the environment variables
      */
     public function __construct($fileName, $path) {
         $this->fileName = $fileName;
@@ -33,14 +33,16 @@ class Loader {
     /**
      * Load variables from .env file
      * 
+     * @param array $overwritten Variables names that can be overwritten
+     * 
      * @return void
      */
-    public function load() {
+    public function load($overwritten) {
         $file = $this->checkFile();
         foreach ($file as $lines => $line) {
             if ($line != "\n") {
                 $data = $this->parseLine($line);
-                $this->setEnvVariable($data[0], $data[1]);
+                $this->setEnvVariable($data[0], $data[1], $overwritten);
             }
         }
     }
@@ -49,7 +51,7 @@ class Loader {
     /**
      * Check if file is file, exists and and if path is readable
      * 
-     * @throws \Exception
+     * @throws \Exception 
      * 
      * @return mixed
      */
@@ -63,7 +65,7 @@ class Loader {
     /**
      * Explode a line to array 
      * 
-     * @param string $line
+     * @param string $line Line with data from '.env' file
      * 
      * @throws \Exception
      * 
@@ -78,14 +80,19 @@ class Loader {
     }
 
     /**
-     * Check if a variable exists so as not to overwrite its value
+     * Check a whether a variable value van be assigned or changed
      * 
-     * @param string $name
+     * @param string $name        The name of the new variable 
+     * @param array  $overwritten Variables names that can be overwritten
      * 
      * @return bool
      */
-    protected function checkIfEnvVariableExists($name) {
-        if (array_key_exists($name, $_SERVER) || array_key_exists($name, $_SERVER) || getenv($name) != null) {
+    protected function checkChangingPossibility($name, $overwritten) {
+        if (in_array('*', $overwritten) && count($overwritten) == 1) {
+            return true;
+        } elseif (in_array($name, $overwritten)) {
+            return true;
+        } elseif (!array_key_exists($name, $_SERVER) && !array_key_exists($name, $_SERVER) && getenv($name) == null) {
             return true;
         }
         return false;
@@ -94,13 +101,14 @@ class Loader {
     /**
      * Set variable to getenv() function
      * 
-     * @param string $name
-     * @param string $value
+     * @param string $name        The name of the new variable
+     * @param string $value       The value of the new variable
+     * @param array  $overwritten Variables names that can be overwritten
      * 
      * @return void
      */
-    protected function setEnvVariable($name, $value) {
-        if (!$this->checkIfEnvVariableExists($name)) {
+    protected function setEnvVariable($name, $value, $overwritten) {
+        if ($this->checkChangingPossibility($name, $overwritten)) {
             $value = Parser::parseValue($value);
             putenv("$name=$value");
             $_SERVER[$name] = $value;
