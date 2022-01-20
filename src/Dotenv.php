@@ -40,12 +40,19 @@ class Dotenv {
 
     /**
      * Run Dotenv instance and load variables 
-     * 
-     * @param bool $all
-     * 
+     *
      * @return void
      */
     public function start() {
         return $this->loader->load();
+    }
+
+    /**
+     * Return new Validtor instance to validate data from .env
+     * 
+     * @return \Dotenv\Validator 
+     */
+    public function validator() {
+        return new Validator();
     }
 }

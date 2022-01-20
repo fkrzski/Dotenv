@@ -4,8 +4,6 @@ namespace Dotenv;
 
 use Exception;
 
-echo "<pre>";
-
 class Parser {
     /**
      * Parsing a given value
@@ -46,6 +44,8 @@ class Parser {
             } else {
                 throw new Exception("Only comments can be after closing quotation marks");
             }
+        } else {
+            throw new Exception("Quoted variable must be closed");
         }
     }
 

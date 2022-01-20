@@ -11,15 +11,20 @@ APP_NAME="My App Name"  # My app name
 API_KEY=YourApiKey      # My api key
 ```
 
-### Include `Dotenv` class
+### Include ` Dotenv ` class
 ```php
 use Dotenv\Dotenv;
 ```
 
-### Load `.env` variables
+### Load ` .env ` variables
 ```php
 $dotenv = new Dotenv();
 $dotenv->start();
+```
+
+### Requiring variables
+```php
+$dotenv->validator()->required(['APP_NAME', 'API_KEY']);
 ```
 
 ### Retrieving  variables values

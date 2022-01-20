@@ -60,8 +60,21 @@ class Loader {
         return file($this->path.$this->fileName, FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES);
     }
 
+    /**
+     * Explode a line to array 
+     * 
+     * @param string $line
+     * 
+     * @throws \Exception
+     * 
+     * @return string[]
+     */
     public function parseLine($line) {
-        return explode('=', $line);
+        if (substr_count($line, '=')) {
+            return explode('=', $line);
+        } else {
+            throw new Exception("Variable without equal sign");
+        }
     }
 
     /**
