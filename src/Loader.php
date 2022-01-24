@@ -71,7 +71,7 @@ class Loader {
      * 
      * @return string[]
      */
-    public function parseLine($line) {
+    protected function parseLine($line) {
         if (substr_count($line, '=')) {
             return explode('=', $line);
         } else {

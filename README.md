@@ -22,9 +22,11 @@ $dotenv = new Dotenv();
 $dotenv->start();
 ```
 
-### Requiring variables
+### Custom path or file name
 ```php
-$dotenv->validator()->required(['APP_NAME', 'API_KEY']);
+$dotenv = new Dotenv('myenvfile.env', '/path/to/file');
+
+// Now you are using myenvfile.env from /path/to/file folder
 ```
 
 ### Retrieving variables values
@@ -80,9 +82,28 @@ echo getenv('API_KEY');
 // SecondApiKey
 ```
 
-### Custom path or file name
-```php
-$dotenv = new Dotenv('myenvfile.env', '/path/to/file');
+### Validating and requiring variables
+`.env` file
+```shell
+APP_NAME="App Name"
+PHONE_NUMBER=111222333
+```
 
-// Now you are using myenvfile.env from /path/to/file folder
+PHP file
+```php
+$dotenv->start();
+
+$dotenv->validator()->validate([
+    'APP_NAME'     => 'required|alnum',
+    'PHONE_NUMBER' => 'required|integer',
+]);
+
+/* All validating rules:
+ * - required
+ * - letters (Letters and spaces only)
+ * - alnum (Letters, numers and spaces)
+ * - integer
+ * - boolean (true/false)
+ * - float
+ */ 
 ```

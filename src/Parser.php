@@ -31,7 +31,7 @@ class Parser {
      * 
      * @return string
      */
-    public static function parseQuoted($value) {
+    protected static function parseQuoted($value) {
         if (substr_count($value, '"') == 2  && $value[strlen($value)-1] == '"') {
             $value = substr($value, 1, strlen($value)-2);
             return rtrim($value);
@@ -56,7 +56,7 @@ class Parser {
      * 
      * @return string
      */
-    public static function parseUnquoted($value) {
+    protected static function parseUnquoted($value) {
         if (strpos($value, '#')) {
             $value = substr($value, 0, strpos($value, '#'));
             $value = rtrim($value);
