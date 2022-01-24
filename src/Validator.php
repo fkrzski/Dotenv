@@ -2,7 +2,7 @@
 
 namespace Dotenv;
 
-use Exception;
+use Dotenv\Exceptions\ValidationException;
 
 class Validator {
     /**
@@ -53,13 +53,13 @@ class Validator {
      * 
      * @param string $name Variable name that must be included in the '.env' file
      * 
-     * @throws \Exception
+     * @throws \Dotenv\Exceptions\ValidationException
      * 
      * @return void
      */
     public function required($name) {
         if (!array_key_exists($name, $_SERVER) && !array_key_exists($name, $_ENV) && getenv($name) == null || strlen(getenv($name)) == 0) {
-            throw new Exception("Required value ".$name." not found or is empty");
+            throw new ValidationException(sprintf("Required value %s not found or is empty", $name));
         }
     }
 
@@ -68,13 +68,13 @@ class Validator {
      * 
      * @param string $name Variable name that must be included in the '.env' file
      * 
-     * @throws \Exception
+     * @throws \Dotenv\Exceptions\ValidationException
      * 
      * @return void
      */
     public function letters($name) {
         if (!ctype_alpha(str_replace(" ", "", $_SERVER[$name])) && !ctype_alpha(str_replace(" ", "", $_ENV[$name])) && !ctype_alpha(str_replace(" ", "", getenv($name)))) {
-            throw new Exception("Value ".$name." do not have only letters and spaces");
+            throw new ValidationException(sprintf("Value %s do not have only letters and spaces", $name));
         }
     }
 
@@ -83,13 +83,13 @@ class Validator {
      * 
      * @param string $name Variable name that must be included in the '.env' file
      * 
-     * @throws \Exception
+     * @throws \Dotenv\Exceptions\ValidationException
      * 
      * @return void
      */
     public function alnum($name) {
         if (!ctype_alnum(str_replace(" ", "", $_SERVER[$name])) && !ctype_alnum(str_replace(" ", "", $_ENV[$name])) && !ctype_alnum(str_replace(" ", "", getenv($name)))) {
-            throw new Exception("Value ".$name." do not have only letters and spaces");
+            throw new ValidationException(sprintf("Value %s do not have only letters, numbers and spaces", $name));
         }
     }
 
@@ -98,13 +98,13 @@ class Validator {
      * 
      * @param string $name Variable name that must be included in the '.env' file
      * 
-     * @throws \Exception
+     * @throws \Dotenv\Exceptions\ValidationException
      * 
      * @return void
      */
     public function integer($name) {
         if (!filter_var($_SERVER[$name], FILTER_VALIDATE_INT) && !filter_var($_ENV[$name], FILTER_VALIDATE_INT) && !filter_var(getenv($name), FILTER_VALIDATE_INT)) {
-            throw new Exception("Value ".$name." is not an integer");
+            throw new ValidationException(sprintf("Value %s is not an integer", $name));
         }
     }
 
@@ -113,13 +113,13 @@ class Validator {
      * 
      * @param string $name Variable name that must be included in the '.env' file
      * 
-     * @throws \Exception
+     * @throws \Dotenv\Exceptions\ValidationException
      * 
      * @return void
      */
     public function boolean($name) {
         if (!filter_var($_SERVER[$name], FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE) && !filter_var($_ENV[$name], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) && !filter_var(getenv($name), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)) {
-            throw new Exception("Value ".$name." is not an boolean");
+            throw new ValidationException((sprintf("Value %s is not an boolean", $name)));
         }
     }
 
@@ -128,13 +128,13 @@ class Validator {
      * 
      * @param string $name Variable name that must be included in the '.env' file
      * 
-     * @throws \Exception
+     * @throws \Dotenv\Exceptions\ValidationException
      * 
      * @return void
      */
     public function float($name) {
         if (!filter_var($_SERVER[$name], FILTER_VALIDATE_FLOAT) && !filter_var($_ENV[$name], FILTER_VALIDATE_FLOAT) && !filter_var(getenv($name), FILTER_VALIDATE_FLOAT)) {
-            throw new Exception("Value ".$name." is not an float");
+            throw new ValidationException((sprintf("Value %s is not an float", $name)));
         }
     }
 }

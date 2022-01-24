@@ -2,7 +2,7 @@
 
 namespace Dotenv;
 
-use Exception;
+use Dotenv\Exceptions\InvalidSyntaxException;
 
 class Parser {
     /**
@@ -27,7 +27,7 @@ class Parser {
      * 
      * @param string $value
      * 
-     * @throws \Exception
+     * @throws \Dotenv\Exceptions\InvalidSyntaxException
      * 
      * @return string
      */
@@ -42,17 +42,17 @@ class Parser {
             if (strpos($value[1], '#')) {
                 return $value[0];
             } else {
-                throw new Exception("Only comments can be after closing quotation marks");
+                throw new InvalidSyntaxException("Only comments can be after closing quotation marks");
             }
         } else {
-            throw new Exception("Quoted variable must be closed");
+            throw new InvalidSyntaxException("Quoted variable must be closed");
         }
     }
 
     /**
      * Parsing a value without any quotation mark
      * 
-     * @throws \Exception
+     * @throws \Dotenv\Exceptions\InvalidSyntaxException
      * 
      * @return string
      */
@@ -63,7 +63,7 @@ class Parser {
         }
 
         if (substr_count($value, ' ') > 0) {
-            throw new Exception("Unquoted values cannot have spaces");
+            throw new InvalidSyntaxException("Unquoted values cannot have spaces");
         }
         return $value;
     }

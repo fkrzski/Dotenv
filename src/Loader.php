@@ -2,7 +2,8 @@
 
 namespace Dotenv;
 
-use Exception;
+use Dotenv\Exceptions\FileNotFoundException;
+use Dotenv\Exceptions\InvalidSyntaxException;
 
 class Loader {
     /**
@@ -51,13 +52,13 @@ class Loader {
     /**
      * Check if file is file, exists and and if path is readable
      * 
-     * @throws \Exception 
+     * @throws \Dotenv\Exceptions\FileNotFoundException 
      * 
      * @return mixed
      */
     protected function checkFile() {
         if (!is_readable($this->path.$this->fileName) && !is_file($this->path.$this->fileName) && !file_exists($this->path.$this->fileName)) {
-            throw new Exception("File ".$this->path.$this->fileName." don't exists");
+            throw new FileNotFoundException(sprintf("File %s not found in %s", $this->fileName, $this->path));
         } 
         return file($this->path.$this->fileName, FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES);
     }
@@ -67,7 +68,7 @@ class Loader {
      * 
      * @param string $line Line with data from '.env' file
      * 
-     * @throws \Exception
+     * @throws \Dotenv\Exceptions\InvalidSyntaxException
      * 
      * @return string[]
      */
@@ -75,7 +76,7 @@ class Loader {
         if (substr_count($line, '=')) {
             return explode('=', $line);
         } else {
-            throw new Exception("Variable without equal sign");
+            throw new InvalidSyntaxException("Variable without equal sign");
         }
     }
 
