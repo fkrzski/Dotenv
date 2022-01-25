@@ -1,9 +1,9 @@
 <?php
 
-namespace Dotenv;
+namespace fkrzski\Dotenv;
 
-use Dotenv\Exceptions\FileNotFoundException;
-use Dotenv\Exceptions\InvalidSyntaxException;
+use fkrzski\Dotenv\Exceptions\FileNotFoundException;
+use fkrzski\Dotenv\Exceptions\InvalidSyntaxException;
 
 class Loader {
     /**
@@ -52,7 +52,7 @@ class Loader {
     /**
      * Check if file is file, exists and and if path is readable
      * 
-     * @throws \Dotenv\Exceptions\FileNotFoundException 
+     * @throws fkrzski\Dotenv\Exceptions\FileNotFoundException 
      * 
      * @return mixed
      */
@@ -68,7 +68,7 @@ class Loader {
      * 
      * @param string $line Line with data from '.env' file
      * 
-     * @throws \Dotenv\Exceptions\InvalidSyntaxException
+     * @throws fkrzski\Dotenv\Exceptions\InvalidSyntaxException
      * 
      * @return string[]
      */

@@ -1,8 +1,8 @@
 <?php
 
-namespace Dotenv;
+namespace fkrzski\Dotenv;
 
-use Dotenv\Exceptions\InvalidSyntaxException;
+use fkrzski\Dotenv\Exceptions\InvalidSyntaxException;
 
 class Parser {
     /**
@@ -27,7 +27,7 @@ class Parser {
      * 
      * @param string $value
      * 
-     * @throws \Dotenv\Exceptions\InvalidSyntaxException
+     * @throws fkrzski\Dotenv\Exceptions\InvalidSyntaxException
      * 
      * @return string
      */
@@ -52,7 +52,7 @@ class Parser {
     /**
      * Parsing a value without any quotation mark
      * 
-     * @throws \Dotenv\Exceptions\InvalidSyntaxException
+     * @throws fkrzski\Dotenv\Exceptions\InvalidSyntaxException
      * 
      * @return string
      */

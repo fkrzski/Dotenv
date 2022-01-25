@@ -1,8 +1,8 @@
 <?php
 
-namespace Dotenv;
+namespace fkrzski\Dotenv;
 
-use Dotenv\Exceptions\ValidationException;
+use fkrzski\Dotenv\Exceptions\ValidationException;
 
 class Validator {
     /**
@@ -53,7 +53,7 @@ class Validator {
      * 
      * @param string $name Variable name that must be included in the '.env' file
      * 
-     * @throws \Dotenv\Exceptions\ValidationException
+     * @throws fkrzski\Dotenv\Exceptions\ValidationException
      * 
      * @return void
      */
@@ -68,7 +68,7 @@ class Validator {
      * 
      * @param string $name Variable name that must be included in the '.env' file
      * 
-     * @throws \Dotenv\Exceptions\ValidationException
+     * @throws fkrzski\Dotenv\Exceptions\ValidationException
      * 
      * @return void
      */
@@ -83,7 +83,7 @@ class Validator {
      * 
      * @param string $name Variable name that must be included in the '.env' file
      * 
-     * @throws \Dotenv\Exceptions\ValidationException
+     * @throws fkrzski\Dotenv\Exceptions\ValidationException
      * 
      * @return void
      */
@@ -98,7 +98,7 @@ class Validator {
      * 
      * @param string $name Variable name that must be included in the '.env' file
      * 
-     * @throws \Dotenv\Exceptions\ValidationException
+     * @throws fkrzski\Dotenv\Exceptions\ValidationException
      * 
      * @return void
      */
@@ -113,7 +113,7 @@ class Validator {
      * 
      * @param string $name Variable name that must be included in the '.env' file
      * 
-     * @throws \Dotenv\Exceptions\ValidationException
+     * @throws fkrzski\Dotenv\Exceptions\ValidationException
      * 
      * @return void
      */
@@ -128,7 +128,7 @@ class Validator {
      * 
      * @param string $name Variable name that must be included in the '.env' file
      * 
-     * @throws \Dotenv\Exceptions\ValidationException
+     * @throws fkrzski\Dotenv\Exceptions\ValidationException
      * 
      * @return void
      */

@@ -1,6 +1,7 @@
 <?php
+declare(strict_types=1);
 
-namespace Dotenv;
+namespace fkrzski\Dotenv;
 
 class Dotenv {
     /**

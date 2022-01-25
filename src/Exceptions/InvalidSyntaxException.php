@@ -1,6 +1,6 @@
 <?php
 
-namespace Dotenv\Exceptions;
+namespace fkrzski\Dotenv\Exceptions;
 
 use Exception;
 
