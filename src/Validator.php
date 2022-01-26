@@ -118,7 +118,7 @@ class Validator {
      * @return void
      */
     public function boolean($name) {
-        if (!filter_var($_SERVER[$name], FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE) && !filter_var($_ENV[$name], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) && !filter_var(getenv($name), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)) {
+        if (filter_var($_SERVER[$name], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) === null && filter_var($_ENV[$name], FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) === null && filter_var(getenv($name), FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) === null) {
             throw new ValidationException((sprintf("Value %s is not an boolean", $name)));
         }
     }

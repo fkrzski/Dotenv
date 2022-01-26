@@ -39,7 +39,7 @@ class Parser {
             $value = substr($value, 1);
             $value = explode('"', $value);
 
-            if (strpos($value[1], '#')) {
+            if (strpos($value[1], '#') && strpos(ltrim($value[1]), '#') == 0) {
                 return $value[0];
             } else {
                 throw new InvalidSyntaxException("Only comments can be after closing quotation marks");

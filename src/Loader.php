@@ -43,7 +43,9 @@ class Loader {
         foreach ($file as $lines => $line) {
             if ($line != "\n") {
                 $data = $this->parseLine($line);
-                $this->setEnvVariable($data[0], $data[1], $overwritten);
+                if ($data !== null) {
+                    $this->setEnvVariable($data[0], $data[1], $overwritten);
+                }
             }
         }
     }
@@ -73,8 +75,14 @@ class Loader {
      * @return string[]
      */
     protected function parseLine($line) {
-        if (substr_count($line, '=')) {
+        if (substr_count($line, '=') == 1) {
             return explode('=', $line);
+        } elseif (substr_count($line, '=') == 0 && substr_count($line, '#')) {
+            $line = ltrim($line);
+            if ($line[0] == '#') {
+                return null;
+            }
+            throw new InvalidSyntaxException("Variable without equal sign");
         } else {
             throw new InvalidSyntaxException("Variable without equal sign");
         }

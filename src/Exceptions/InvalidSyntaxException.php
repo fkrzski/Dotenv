@@ -4,6 +4,6 @@ namespace fkrzski\Dotenv\Exceptions;
 
 use Exception;
 
-class InvalidSyntaxException extends Exception {
+final class InvalidSyntaxException extends Exception {
     //
 }
