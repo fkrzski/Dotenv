@@ -35,10 +35,17 @@ class DotenvTest extends TestCase {
         $this->assertSame('value3', getenv('VAR3'));
         $this->assertSame('value4', getenv('VAR4'));
         $this->assertSame('', getenv('NULL'));
+        $this->assertSame('var=value', getenv('EQUAL'));
     }
 
     public function testDotenvLoadIncorrectVariables() {
         $dotenv = new Dotenv('env_incorrect.env', $this->envsFolder);
+        $this->expectException(InvalidSyntaxException::class);
+        $dotenv->start();
+    }
+
+    public function testDotenvLoadIncorrectVariables2() {
+        $dotenv = new Dotenv('env_incorrect2.env', $this->envsFolder);
         $this->expectException(InvalidSyntaxException::class);
         $dotenv->start();
     }
@@ -82,6 +89,7 @@ class DotenvTest extends TestCase {
         $this->assertSame('1', getenv('qINT'));
         $this->assertSame('1.1', getenv('qFLOAT'));
         $this->assertSame('a', getenv('qCHAR'));
+        $this->assertSame('var=value', getenv('qEQUAL'));
     }
 
     public function testDotenvLoadIncorrectQuotedVariables() {

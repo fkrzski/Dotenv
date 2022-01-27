@@ -75,9 +75,9 @@ class Loader {
      * @return string[]
      */
     protected function parseLine($line) {
-        if (substr_count($line, '=') == 1) {
-            return explode('=', $line);
-        } elseif (substr_count($line, '=') == 0 && substr_count($line, '#')) {
+        if (substr_count($line, '=')) {
+            return explode('=', $line, 2);
+        } elseif (!substr_count($line, '=') && substr_count($line, '#')) {
             $line = ltrim($line);
             if ($line[0] == '#') {
                 return null;
