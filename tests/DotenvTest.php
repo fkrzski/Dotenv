@@ -50,6 +50,12 @@ class DotenvTest extends TestCase {
         $dotenv->start();
     }
 
+    public function testDotenvLoadIncorrectVariables3() {
+        $dotenv = new Dotenv('env_incorrect3.env', $this->envsFolder);
+        $this->expectException(InvalidSyntaxException::class);
+        $dotenv->start();
+    }
+
     public function testDotenvLoadOverwrittenVariable() {
         $dotenv = new Dotenv('overwritten.env', $this->envsFolder);
         $dotenv->start(['OVERWRITTEN']);
@@ -94,6 +100,20 @@ class DotenvTest extends TestCase {
 
     public function testDotenvLoadIncorrectQuotedVariables() {
         $dotenv = new Dotenv('quoted_incorrect.env', $this->envsFolder);
+        $this->expectException(InvalidSyntaxException::class);
+        $dotenv->start();
+    }
+
+    public function testDotenvLoadSingleQuotedVariables() {
+        $dotenv = new Dotenv('squoted.env', $this->envsFolder);
+        $dotenv->start();
+        $this->assertSame('value', getenv('sQUOTED1'));
+        $this->assertSame('va=lue', getenv('sQUOTED2'));
+        $this->assertSame('value #comment', getenv('sQUOTED3'));
+    }
+
+    public function testDotenvLoadIncorrectSingleQuotedVariables() {
+        $dotenv = new Dotenv('squoted_incorrect.env', $this->envsFolder);
         $this->expectException(InvalidSyntaxException::class);
         $dotenv->start();
     }

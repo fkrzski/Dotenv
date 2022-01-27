@@ -72,11 +72,15 @@ class Loader {
      * 
      * @throws fkrzski\Dotenv\Exceptions\InvalidSyntaxException
      * 
-     * @return string[]
+     * @return string[]|null
      */
     protected function parseLine($line) {
         if (substr_count($line, '=')) {
-            return explode('=', $line, 2);
+            $line = explode('=', $line, 2);
+            if (substr_count($line[0], ' ') || substr_count($line[0], '"') || substr_count($line[0], "'")) {
+                throw new InvalidSyntaxException(sprintf("Variable %s with space or quotation marks in name", $line[0]));
+            }
+            return $line;
         } elseif (!substr_count($line, '=') && substr_count($line, '#')) {
             $line = ltrim($line);
             if ($line[0] == '#') {
