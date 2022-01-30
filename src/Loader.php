@@ -42,7 +42,7 @@ class Loader {
         $file = $this->checkFile();
         foreach ($file as $lines => $line) {
             if ($line != "\n") {
-                $data = $this->parseLine($line);
+                $data = Parser::parseLine($line);
                 if ($data !== null) {
                     $this->setEnvVariable($data[0], $data[1], $overwritten);
                 }
@@ -63,33 +63,6 @@ class Loader {
             throw new FileNotFoundException(sprintf("File %s not found in %s", $this->fileName, $this->path));
         } 
         return file($this->path.$this->fileName, FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES);
-    }
-
-    /**
-     * Explode a line to array 
-     * 
-     * @param string $line Line with data from '.env' file
-     * 
-     * @throws fkrzski\Dotenv\Exceptions\InvalidSyntaxException
-     * 
-     * @return string[]|null
-     */
-    protected function parseLine($line) {
-        if (substr_count($line, '=')) {
-            $line = explode('=', $line, 2);
-            if (substr_count($line[0], ' ') || substr_count($line[0], '"') || substr_count($line[0], "'")) {
-                throw new InvalidSyntaxException(sprintf("Variable %s with space or quotation marks in name", $line[0]));
-            }
-            return $line;
-        } elseif (!substr_count($line, '=') && substr_count($line, '#')) {
-            $line = ltrim($line);
-            if ($line[0] == '#') {
-                return null;
-            }
-            throw new InvalidSyntaxException("Variable without equal sign");
-        } else {
-            throw new InvalidSyntaxException("Variable without equal sign");
-        }
     }
 
     /**
@@ -120,7 +93,7 @@ class Loader {
      * 
      * @return void
      */
-    protected function setEnvVariable($name, $value, $overwritten) {
+    public function setEnvVariable($name, $value, $overwritten) {
         if ($this->checkChangingPossibility($name, $overwritten)) {
             $value = Parser::parseValue($value);
             putenv("$name=$value");

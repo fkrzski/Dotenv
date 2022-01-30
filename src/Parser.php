@@ -6,6 +6,46 @@ use fkrzski\Dotenv\Exceptions\InvalidSyntaxException;
 
 class Parser {
     /**
+     * Explode a line to array 
+     * 
+     * @param string $line Line with data from '.env' file
+     * 
+     * @throws fkrzski\Dotenv\Exceptions\InvalidSyntaxException
+     * 
+     * @return string[]|null
+     */
+    public static function parseLine($line) {
+        if (substr_count($line, '=')) {
+            $line = explode('=', $line, 2);
+            self::checkName($line[0]);
+            return $line;
+        } elseif (!substr_count($line, '=') && substr_count($line, '#')) {
+            $line = ltrim($line);
+            if ($line[0] == '#') {
+                return null;
+            }
+            throw new InvalidSyntaxException("Variable without equal sign");
+        } else {
+            throw new InvalidSyntaxException("Variable without equal sign");
+        }
+    }
+
+    /**
+     * Check if variable name is correct
+     * 
+     * @param string $name The name of the variable
+     * 
+     * @throws fkrzski\Dotenv\Exceptions\InvalidSyntaxException
+     * 
+     * @return void
+     */
+    public static function checkName($name) {
+        if (substr_count($name, ' ') || substr_count($name, '"') || substr_count($name, "'")) {
+            throw new InvalidSyntaxException(sprintf("Variable %s with space or quotation marks in name", $name));
+        }
+    }
+
+    /**
      * Parsing a given value
      * 
      * @param string $value A variable value

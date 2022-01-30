@@ -58,4 +58,27 @@ class Dotenv {
     public function validator() {
         return new Validator();
     }
+
+    /**
+     * Put or edit one environment variable 
+     * 
+     * @param string $name        The name of the new variable
+     * @param string $value       The value of the new variable
+     * @param array  $overwritten Variables names that can be overwritten
+     * 
+     * @return mixed
+     */
+    public static function single($name, $value, $overwritten = false) {
+        Parser::checkName($name);
+        $value = Parser::parseValue($value);
+
+        if ($overwritten == true) {
+            $overwritten = array($name);
+        } else {
+            $overwritten = [];
+        }
+
+        $loader = new Loader('', '');
+        return $loader->setEnvVariable($name, $value, $overwritten);
+    }
 }

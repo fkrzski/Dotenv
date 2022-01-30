@@ -111,3 +111,9 @@ $dotenv->validator()->validate([
  * - float
  */ 
 ```
+
+### Put single variable
+```php
+Dotenv::single('VAR', 'value');
+echo getenv("VAR");
+```

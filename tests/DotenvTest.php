@@ -145,4 +145,21 @@ class DotenvTest extends TestCase {
         $this->expectException(InvalidSyntaxException::class);
         $dotenv->start();
     }
+
+    public function testDotenvLoadSingleVariable() {
+        Dotenv::single('SINGLE_NAME', 'SINGLE_VALUE');
+        $this->assertSame('SINGLE_VALUE', getenv('SINGLE_NAME'));
+    }
+
+    public function testDotenvLoadSingleVariableWithOverwrite() {
+        Dotenv::single('SINGLE_NAME_OVERWRITTEN', 'SINGLE_VALUE');
+        Dotenv::single('SINGLE_NAME_OVERWRITTEN', 'SINGLE_VALUE_OVERWRITTEN', true);
+        $this->assertSame('SINGLE_VALUE_OVERWRITTEN', getenv('SINGLE_NAME_OVERWRITTEN'));
+    }
+
+    public function testDotenvLoadSingleVariableWithBadOverwrite() {
+        Dotenv::single('SINGLE_NAME_BAD_OVERWRITTEN', 'SINGLE_VALUE');
+        Dotenv::single('SINGLE_NAME_BAD_OVERWRITTEN', 'SINGLE_VALUE_BAD_OVERWRITTEN', false);
+        $this->assertSame('SINGLE_VALUE', getenv('SINGLE_NAME_BAD_OVERWRITTEN'));
+    }
 }
