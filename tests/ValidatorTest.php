@@ -23,7 +23,7 @@ class ValidatorTest extends TestCase {
     }
 
     public function testValidatorRuleRequired() {
-        $dotenv = new Dotenv('required.env', $this->envsFolder);
+        $dotenv = new Dotenv($this->envsFolder.'required.env');
         $dotenv->start();
         $this->assertEmpty($dotenv->validator()->validate([
             'REQUIRED1' => 'required',
@@ -33,7 +33,7 @@ class ValidatorTest extends TestCase {
     }
 
     public function testValidatorRuleRequiredWithoutRequiredVariable() {
-        $dotenv = new Dotenv('required_without_variable.env', $this->envsFolder);
+        $dotenv = new Dotenv($this->envsFolder.'required_without_variable.env');
         $dotenv->start();
         $this->expectException(ValidationException::class);
         $dotenv->validator()->validate([
@@ -44,7 +44,7 @@ class ValidatorTest extends TestCase {
     }
 
     public function testValidatorRuleRequiredWithEmptyValue() {
-        $dotenv = new Dotenv('required_with_empty.env', $this->envsFolder);
+        $dotenv = new Dotenv($this->envsFolder.'required_with_empty.env');
         $dotenv->start();
         $this->expectException(ValidationException::class);
         $dotenv->validator()->validate([
@@ -55,7 +55,7 @@ class ValidatorTest extends TestCase {
     }
 
     public function testValidatorRuleLetters() {
-        $dotenv = new Dotenv('letters.env', $this->envsFolder);
+        $dotenv = new Dotenv($this->envsFolder.'letters.env');
         $dotenv->start();
         $this->assertEmpty($dotenv->validator()->validate([
             'LETTERS1' => 'letters',
@@ -65,7 +65,7 @@ class ValidatorTest extends TestCase {
     }
 
     public function testValidatorRuleLettersIncorrect() {
-        $dotenv = new Dotenv('letters_incorrect.env', $this->envsFolder);
+        $dotenv = new Dotenv($this->envsFolder.'letters_incorrect.env');
         $dotenv->start();
         $this->expectException(ValidationException::class);
         $dotenv->validator()->validate([
@@ -76,7 +76,7 @@ class ValidatorTest extends TestCase {
     }
 
     public function testValidatorRuleAlnum() {
-        $dotenv = new Dotenv('alnum.env', $this->envsFolder);
+        $dotenv = new Dotenv($this->envsFolder.'alnum.env');
         $dotenv->start();
         $this->assertEmpty($dotenv->validator()->validate([
             'ALNUM1' => 'alnum',
@@ -86,7 +86,7 @@ class ValidatorTest extends TestCase {
     }
 
     public function testValidatorRuleAlnumIncorrect() {
-        $dotenv = new Dotenv('alnum_incorrect.env', $this->envsFolder);
+        $dotenv = new Dotenv($this->envsFolder.'alnum_incorrect.env');
         $dotenv->start();
         $this->expectException(ValidationException::class);
         $dotenv->validator()->validate([
@@ -97,7 +97,7 @@ class ValidatorTest extends TestCase {
     }
 
     public function testValidatorRuleInteger() {
-        $dotenv = new Dotenv('integer.env', $this->envsFolder);
+        $dotenv = new Dotenv($this->envsFolder.'integer.env');
         $dotenv->start();
         $this->assertEmpty($dotenv->validator()->validate([
             'INTEGER1' => 'integer',
@@ -107,7 +107,7 @@ class ValidatorTest extends TestCase {
     }
 
     public function testValidatorRulIntegerncorrect() {
-        $dotenv = new Dotenv('integer_incorrect.env', $this->envsFolder);
+        $dotenv = new Dotenv($this->envsFolder.'integer_incorrect.env');
         $dotenv->start();
         $this->expectException(ValidationException::class);
         $dotenv->validator()->validate([
@@ -118,7 +118,7 @@ class ValidatorTest extends TestCase {
     }
 
     public function testValidatorRuleBoolean() {
-        $dotenv = new Dotenv('boolean.env', $this->envsFolder);
+        $dotenv = new Dotenv($this->envsFolder.'boolean.env');
         $dotenv->start();
         $this->assertEmpty($dotenv->validator()->validate([
             'BOOLEAN1' => 'boolean',
@@ -128,7 +128,7 @@ class ValidatorTest extends TestCase {
     }
 
     public function testValidatorRuleBooleanIncorrect() {
-        $dotenv = new Dotenv('boolean_incorrect.env', $this->envsFolder);
+        $dotenv = new Dotenv($this->envsFolder.'boolean_incorrect.env');
         $dotenv->start();
         $this->expectException(ValidationException::class);
         $dotenv->validator()->validate([
@@ -139,7 +139,7 @@ class ValidatorTest extends TestCase {
     }
 
     public function testValidatorRuleFloat() {
-        $dotenv = new Dotenv('float.env', $this->envsFolder);
+        $dotenv = new Dotenv($this->envsFolder.'float.env');
         $dotenv->start();
         $this->assertEmpty($dotenv->validator()->validate([
             'FLOAT1' => 'float',
@@ -149,7 +149,7 @@ class ValidatorTest extends TestCase {
     }
 
     public function testValidatorRuleFloatIncorrect() {
-        $dotenv = new Dotenv('float_incorrect.env', $this->envsFolder);
+        $dotenv = new Dotenv($this->envsFolder.'float_incorrect.env');
         $dotenv->start();
         $this->expectException(ValidationException::class);
         $dotenv->validator()->validate([

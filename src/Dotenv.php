@@ -5,18 +5,11 @@ namespace fkrzski\Dotenv;
 
 class Dotenv {
     /**
-     * The name of the file with environment variables
-     * 
-     * @var string
-     */
-    protected $fileName;
-
-    /**
      * Path to the file with environment variables
      * 
      * @var string
      */
-    protected $path;
+    protected $paths;
 
     /**
      * Loader instance
@@ -28,15 +21,13 @@ class Dotenv {
     /**
      * Create a new Dotenv instance
      * 
-     * @param string $fileName The name of the file with the environment variables
-     * @param string $path     Path to the file with the environment variables
+     * @param string $paths Paths to the files with the environment variables
      * 
      * @return void
      */
-    public function __construct($fileName = '.env', $path = '') {
-        $this->fileName = $fileName;
-        $this->path     = $path;
-        $this->loader   = new Loader($this->fileName, $this->path);
+    public function __construct(...$paths) {
+        $this->paths     = $paths;
+        $this->loader   = new Loader($this->paths);
     }
 
     /**

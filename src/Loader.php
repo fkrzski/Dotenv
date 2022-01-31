@@ -7,28 +7,19 @@ use fkrzski\Dotenv\Exceptions\InvalidSyntaxException;
 
 class Loader {
     /**
-     * The name of the file with environment variables
+     * Paths to the files with environment variables
      * 
-     * @var string
+     * @var array
      */
-    protected $fileName;
-
-    /**
-     * Path to the file with environment variables
-     * 
-     * @var string
-     */
-    protected $path;
+    protected $paths;
 
     /**
      * Create new Loader instance
      * 
-     * @param string $fileName The name of the file with the environment variables
-     * @param string $path     Path to the file with the environment variables
+     * @param string $paths Paths to the files with the environment variables
      */
-    public function __construct($fileName, $path) {
-        $this->fileName = $fileName;
-        $this->path     = $path;
+    public function __construct($paths) {
+        $this->paths = $paths;
     }
 
     /**
@@ -39,7 +30,11 @@ class Loader {
      * @return void
      */
     public function load($overwritten) {
-        $file = $this->checkFile();
+        return $this->loadFiles($overwritten);
+    }
+
+    public function loadLines($file, $overwritten)
+    {
         foreach ($file as $lines => $line) {
             if ($line != "\n") {
                 $data = Parser::parseLine($line);
@@ -54,15 +49,20 @@ class Loader {
     /**
      * Check if file is file, exists and and if path is readable
      * 
+     * @param array $overwritten Variables names that can be overwritten
+     * 
      * @throws fkrzski\Dotenv\Exceptions\FileNotFoundException 
      * 
      * @return mixed
      */
-    protected function checkFile() {
-        if (!is_readable($this->path.$this->fileName) && !is_file($this->path.$this->fileName) && !file_exists($this->path.$this->fileName)) {
-            throw new FileNotFoundException(sprintf("File %s not found in %s", $this->fileName, $this->path));
-        } 
-        return file($this->path.$this->fileName, FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES);
+    protected function loadFiles($overwritten) {
+
+        foreach ($this->paths as $key => $value) {
+            if (!is_readable($value) && !is_file($value) && !file_exists($value)) {
+                throw new FileNotFoundException(sprintf("File %s not found", $value));
+            }
+            $this->loadLines(file($value, FILE_SKIP_EMPTY_LINES | FILE_IGNORE_NEW_LINES), $overwritten);
+        }
     }
 
     /**
