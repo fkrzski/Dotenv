@@ -22,15 +22,20 @@ use Dotenv\Dotenv;
 
 ### Load ` .env ` variables
 ```php
-$dotenv = new Dotenv();
+$dotenv = new Dotenv('.env');
 $dotenv->start();
 ```
 
 ### Custom path or file name
 ```php
-$dotenv = new Dotenv('myenvfile.env', '/path/to/file');
+$dotenv = new Dotenv('path/to/file/myenvfile.env');
 
 // Now you are using myenvfile.env from /path/to/file folder
+```
+
+### Many `.env` files
+```php
+$dotenv = new Dotenv('path/to/file/myenvfile.env', 'path/to/file/mysecondenvfile.env');
 ```
 
 ### Retrieving variables values
@@ -110,4 +115,10 @@ $dotenv->validator()->validate([
  * - boolean (true/false)
  * - float
  */ 
+```
+
+### Put single variable
+```php
+Dotenv::single('VAR', 'value');
+echo getenv("VAR");
 ```
