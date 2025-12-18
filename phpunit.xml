@@ -21,4 +21,9 @@
             <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
+    <testsuites>
+        <testsuite name="Application Test Suite">
+            <directory>./tests/</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>
