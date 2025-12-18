@@ -19,7 +19,7 @@ class ValidatorTest extends TestCase {
      * @before 
      */
     public function setUpTest() {
-        $this->envsFolder = __DIR__.'\envs\\';
+        $this->envsFolder = __DIR__.'/envs/';
     }
 
     public function testValidatorRuleRequired() {
